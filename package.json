@@ -1,0 +1,26 @@
+{
+  "name": "glass-lighting-platform",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev:website": "pnpm --filter @platform/website dev",
+    "dev:crm": "pnpm --filter @platform/crm dev",
+    "build": "pnpm --filter './apps/*' build",
+    "build:website": "pnpm --filter @platform/website build",
+    "build:crm": "pnpm --filter @platform/crm build",
+    "lint": "pnpm -r --parallel lint",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "test": "pnpm -r test",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,css,md}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,css,md}\" --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
+}

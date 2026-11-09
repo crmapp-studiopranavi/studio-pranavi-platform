@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── shadcn/ui HSL tokens (DO NOT REMOVE) ───────────────────────────────── */
+    --background: 40 30% 97%;
+    --foreground: 20 10% 15%;
+    --card: 40 30% 98%;
+    --card-foreground: 20 10% 15%;
+    --popover: 40 30% 98%;
+    --popover-foreground: 20 10% 15%;
+    --primary: 38 55% 50%;
+    --primary-foreground: 40 30% 97%;
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 20 10% 15%;
+    --muted: 40 15% 90%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 180 40% 30%;
+    --accent-foreground: 40 30% 97%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 38 55% 50%;
+    --radius: 0.5rem;
+
+    /* ── Studio Pranavi design tokens ──────────────────────────────────────── */
+
+    /* Palette */
+    --sp-charcoal: #2c2c2c;
+    --sp-ivory: #f9f5ef;
+    --sp-stone: #ede8df;
+    --sp-amber: #c8973a;
+    --sp-brass: #9e7529;
+    --sp-teal: #2d6a6a;
+
+    /* Semantic surface / text */
+    --sp-surface: var(--sp-ivory);
+    --sp-surface-alt: var(--sp-stone);
+    --sp-surface-dark: var(--sp-charcoal);
+    --sp-text: var(--sp-charcoal);
+    --sp-text-muted: #6b6555;
+    --sp-text-on-dark: var(--sp-ivory);
+    --sp-border: #ddd8cf;
+    --sp-focus: var(--sp-amber);
+
+    /* Typography scale (fluid, rem) */
+    --sp-text-display-xl: clamp(2.75rem, 5vw, 4.5rem);
+    --sp-text-display-lg: clamp(2.25rem, 4vw, 3.5rem);
+    --sp-text-display-md: clamp(1.875rem, 3vw, 2.75rem);
+    --sp-text-h1: clamp(1.75rem, 2.5vw, 2.25rem);
+    --sp-text-h2: clamp(1.375rem, 2vw, 1.75rem);
+    --sp-text-h3: clamp(1.125rem, 1.5vw, 1.375rem);
+    --sp-text-body-lg: 1.125rem;
+    --sp-text-body: 1rem;
+    --sp-text-body-sm: 0.9375rem;
+    --sp-text-caption: 0.8125rem;
+    --sp-text-label: 0.6875rem;
+
+    /* Line heights */
+    --sp-leading-display: 1.1;
+    --sp-leading-heading: 1.3;
+    --sp-leading-body: 1.65;
+    --sp-leading-tight: 1.2;
+
+    /* Letter spacing */
+    --sp-tracking-display: -0.02em;
+    --sp-tracking-heading: -0.01em;
+    --sp-tracking-label: 0.12em;
+    --sp-tracking-body: 0em;
+
+    /* Spacing scale (4px base) */
+    --sp-space-xs: 0.25rem;
+    --sp-space-sm: 0.5rem;
+    --sp-space-md: 1rem;
+    --sp-space-lg: 1.5rem;
+    --sp-space-xl: 2rem;
+    --sp-space-2xl: 3rem;
+    --sp-space-3xl: 4rem;
+    --sp-space-4xl: 6rem;
+    --sp-space-5xl: 8rem;
+
+    /* Section padding */
+    --sp-section-y: clamp(4rem, 8vw, 7.5rem);
+    --sp-section-y-sm: clamp(2.5rem, 5vw, 4rem);
+
+    /* Container */
+    --sp-container-max: 1280px;
+    --sp-container-px: clamp(1rem, 4vw, 3rem);
+
+    /* Border radius */
+    --sp-radius-img: 4px;
+    --sp-radius-ui: 6px;
+    --sp-radius-badge: 2px;
+
+    /* Shadows */
+    --sp-shadow-card: 0 1px 3px rgba(44, 44, 44, 0.08), 0 4px 12px rgba(44, 44, 44, 0.04);
+    --sp-shadow-elevated: 0 4px 16px rgba(44, 44, 44, 0.12), 0 1px 4px rgba(44, 44, 44, 0.06);
+    --sp-shadow-overlay: 0 8px 32px rgba(44, 44, 44, 0.2);
+
+    /* Motion */
+    --sp-duration-fast: 150ms;
+    --sp-duration-ui: 200ms;
+    --sp-duration-reveal: 450ms;
+    --sp-ease-out: cubic-bezier(0.2, 0, 0, 1);
+    --sp-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Buttons */
+    --sp-btn-radius: var(--sp-radius-ui);
+    --sp-btn-h: 2.625rem;
+    --sp-btn-h-sm: 2.125rem;
+    --sp-btn-h-lg: 3.125rem;
+    --sp-btn-px: 1.5rem;
+    --sp-btn-font: 0.875rem;
+    --sp-btn-tracking: 0.04em;
+    --sp-btn-weight: 500;
+
+    /* Links */
+    --sp-link-color: var(--sp-amber);
+    --sp-link-underline-offset: 3px;
+
+    /* Cards */
+    --sp-card-radius: var(--sp-radius-img);
+    --sp-card-shadow: var(--sp-shadow-card);
+    --sp-card-bg: #fff;
+
+    /* Forms */
+    --sp-input-h: 2.75rem;
+    --sp-input-radius: var(--sp-radius-ui);
+    --sp-input-border: var(--sp-border);
+    --sp-input-focus-ring: var(--sp-amber);
+
+    /* Navigation */
+    --sp-nav-h: 4.5rem;
+    --sp-nav-bg: rgba(249, 245, 239, 0.95);
+    --sp-nav-border: var(--sp-border);
+
+    /* Image treatment */
+    --sp-img-radius: var(--sp-radius-img);
+    --sp-img-overlay: rgba(44, 44, 44, 0.35);
+    --sp-img-hover-scale: 1.03;
+
+    /* Video treatment */
+    --sp-video-radius: var(--sp-radius-img);
+    --sp-video-aspect: 16 / 9;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sp-focus);
+    outline-offset: 3px;
+    border-radius: var(--sp-radius-ui);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Sections */
+  .sp-section {
+    padding-top: var(--sp-section-y);
+    padding-bottom: var(--sp-section-y);
+  }
+
+  .sp-section-sm {
+    padding-top: var(--sp-section-y-sm);
+    padding-bottom: var(--sp-section-y-sm);
+  }
+
+  /* Container */
+  .sp-container {
+    width: 100%;
+    max-width: var(--sp-container-max);
+    margin-inline: auto;
+    padding-inline: var(--sp-container-px);
+  }
+
+  /* Label upper */
+  .sp-label-upper {
+    font-size: var(--sp-text-label);
+    font-weight: 600;
+    letter-spacing: var(--sp-tracking-label);
+    text-transform: uppercase;
+  }
+
+  /* Image placeholder (shown while loading) */
+  .sp-img-placeholder {
+    background-color: var(--sp-stone);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sp-img-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 100%
+    );
+    animation: sp-shimmer 1.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sp-img-placeholder::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes sp-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Section reveal animation */
+.sp-reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--sp-duration-reveal) var(--sp-ease-out),
+    transform var(--sp-duration-reveal) var(--sp-ease-out);
+}
+
+.sp-reveal[data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
