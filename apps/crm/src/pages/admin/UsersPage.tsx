@@ -1,4 +1,4 @@
- 
+
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
@@ -12,6 +12,8 @@ type AppRole = 'admin' | 'manager' | 'sales' | 'operations' | 'viewer';
 interface ProfileRow {
   id: string;
   full_name: string;
+  phone: string | null;
+  email: string;
   role: AppRole;
   is_active: boolean;
   avatar_path: string | null;
@@ -46,23 +48,18 @@ function initials(name: string): string {
   return parts[0]?.[0]?.toUpperCase() ?? '?';
 }
 
-// ── Query ─────────────────────────────────────────────────────────────────────
+// ── Queries & mutations ───────────────────────────────────────────────────────
 
 function useProfiles() {
   return useQuery({
     queryKey: ['profiles'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id, full_name, role, is_active, avatar_path, last_seen_at, created_at')
-        .order('full_name');
+      const { data, error } = await supabase.rpc('admin_list_users');
       if (error) throw error;
       return (data ?? []) as ProfileRow[];
     },
   });
 }
-
-// ── Mutations ─────────────────────────────────────────────────────────────────
 
 function useUpdateRole() {
   const qc = useQueryClient();
@@ -71,9 +68,7 @@ function useUpdateRole() {
       const { error } = await supabase.from('profiles').update({ role }).eq('id', profileId);
       if (error) throw error;
     },
-    onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ['profiles'] });
-    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['profiles'] }),
   });
 }
 
@@ -87,10 +82,226 @@ function useToggleActive() {
         .eq('id', profileId);
       if (error) throw error;
     },
-    onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ['profiles'] });
-    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['profiles'] }),
   });
+}
+
+function useUpdateProfile() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      profileId,
+      full_name,
+      phone,
+      email,
+      currentEmail,
+    }: {
+      profileId: string;
+      full_name: string;
+      phone: string;
+      email: string;
+      currentEmail: string;
+    }) => {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ full_name, phone: phone || null })
+        .eq('id', profileId);
+      if (profileError) throw profileError;
+
+      if (email !== currentEmail) {
+        const { error: emailError } = await supabase.rpc('admin_update_user_email', {
+          target_id: profileId,
+          new_email: email,
+        });
+        if (emailError) throw emailError;
+      }
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['profiles'] }),
+  });
+}
+
+function useDeleteUser() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (profileId: string) => {
+      const { error } = await supabase.rpc('admin_delete_user', { target_id: profileId });
+      if (error) throw error;
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['profiles'] }),
+  });
+}
+
+// ── Edit Modal ────────────────────────────────────────────────────────────────
+
+interface EditModalProps {
+  member: ProfileRow;
+  onClose: () => void;
+}
+
+function EditModal({ member, onClose }: EditModalProps) {
+  const [fullName, setFullName] = useState(member.full_name);
+  const [phone, setPhone] = useState(member.phone ?? '');
+  const [email, setEmail] = useState(member.email);
+  const [error, setError] = useState<string | null>(null);
+  const updateProfile = useUpdateProfile();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!fullName.trim()) { setError('Display name is required.'); return; }
+    if (!email.trim()) { setError('Email is required.'); return; }
+    setError(null);
+    try {
+      await updateProfile.mutateAsync({
+        profileId: member.id,
+        full_name: fullName.trim(),
+        phone: phone.trim(),
+        email: email.trim(),
+        currentEmail: member.email,
+      });
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update user.');
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="w-full max-w-md rounded-lg border border-border bg-background shadow-lg">
+        <div className="border-b border-border px-6 py-4">
+          <h2 className="text-lg font-semibold">Edit User</h2>
+          <p className="mt-0.5 text-sm text-muted-foreground">{member.email}</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4 px-6 py-4">
+          {error && (
+            <div className="rounded border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+              {error}
+            </div>
+          )}
+
+          <div>
+            <label className="mb-1 block text-sm font-medium">Display Name</label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="w-full rounded border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="Full name"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium">Mobile Number</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full rounded border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="+91 98765 43210"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              placeholder="user@example.com"
+            />
+          </div>
+
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded border border-border px-4 py-2 text-sm hover:bg-muted"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={updateProfile.isPending}
+              className="rounded bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+            >
+              {updateProfile.isPending ? 'Saving…' : 'Save Changes'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ── Delete Confirmation ───────────────────────────────────────────────────────
+
+interface DeleteDialogProps {
+  member: ProfileRow;
+  onClose: () => void;
+}
+
+function DeleteDialog({ member, onClose }: DeleteDialogProps) {
+  const [error, setError] = useState<string | null>(null);
+  const deleteUser = useDeleteUser();
+
+  async function handleDelete() {
+    setError(null);
+    try {
+      await deleteUser.mutateAsync(member.id);
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to delete user.');
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="w-full max-w-md rounded-lg border border-border bg-background shadow-lg">
+        <div className="border-b border-border px-6 py-4">
+          <h2 className="text-lg font-semibold text-destructive">Delete User</h2>
+        </div>
+
+        <div className="px-6 py-4">
+          <p className="text-sm">
+            Are you sure you want to permanently delete{' '}
+            <strong>{member.full_name}</strong> ({member.email})?
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            This removes the user and all their associated data. This cannot be undone.
+          </p>
+
+          {error && (
+            <div className="mt-3 rounded border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+              {error}
+            </div>
+          )}
+        </div>
+
+        <div className="flex justify-end gap-2 border-t border-border px-6 py-4">
+          <button
+            onClick={onClose}
+            className="rounded border border-border px-4 py-2 text-sm hover:bg-muted"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleDelete}
+            disabled={deleteUser.isPending}
+            className="rounded bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
+          >
+            {deleteUser.isPending ? 'Deleting…' : 'Delete Permanently'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -102,6 +313,8 @@ export default function UsersPage() {
   const toggleActive = useToggleActive();
   const [roleError, setRoleError] = useState<string | null>(null);
   const [toggleError, setToggleError] = useState<string | null>(null);
+  const [editingMember, setEditingMember] = useState<ProfileRow | null>(null);
+  const [deletingMember, setDeletingMember] = useState<ProfileRow | null>(null);
 
   const profiles = data ?? [];
 
@@ -128,7 +341,7 @@ export default function UsersPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Team Members</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Manage user roles and account status.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Manage user roles, details, and account status.</p>
       </div>
 
       {/* Error banners */}
@@ -154,6 +367,7 @@ export default function UsersPage() {
           <thead>
             <tr className="border-b border-border bg-muted/50 text-left">
               <th className="px-4 py-3 font-medium">Name</th>
+              <th className="px-4 py-3 font-medium hidden sm:table-cell">Email</th>
               <th className="px-4 py-3 font-medium">Role</th>
               <th className="px-4 py-3 font-medium">Active</th>
               <th className="px-4 py-3 font-medium hidden md:table-cell">Last Seen</th>
@@ -166,7 +380,7 @@ export default function UsersPage() {
             {isLoading &&
               Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i}>
-                  {Array.from({ length: 6 }).map((__, j) => (
+                  {Array.from({ length: 7 }).map((__, j) => (
                     <td key={j} className="px-4 py-3">
                       <span className="block h-4 animate-pulse rounded bg-muted" />
                     </td>
@@ -177,7 +391,7 @@ export default function UsersPage() {
             {/* Empty state */}
             {!isLoading && profiles.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center">
+                <td colSpan={7} className="px-4 py-12 text-center">
                   <p className="text-muted-foreground">No team members found</p>
                 </td>
               </tr>
@@ -197,13 +411,23 @@ export default function UsersPage() {
                         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
                           {initials(member.full_name)}
                         </span>
-                        <span className="font-medium">{member.full_name}</span>
-                        {isSelf && (
-                          <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                            you
-                          </span>
-                        )}
+                        <div>
+                          <span className="font-medium">{member.full_name}</span>
+                          {isSelf && (
+                            <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                              you
+                            </span>
+                          )}
+                          {member.phone && (
+                            <p className="text-xs text-muted-foreground">{member.phone}</p>
+                          )}
+                        </div>
                       </div>
+                    </td>
+
+                    {/* Email */}
+                    <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">
+                      {member.email}
                     </td>
 
                     {/* Role badge */}
@@ -235,7 +459,7 @@ export default function UsersPage() {
 
                     {/* Actions */}
                     <td className="px-4 py-3">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1.5 flex-wrap">
                         {/* Role dropdown */}
                         <select
                           value={member.role}
@@ -268,6 +492,26 @@ export default function UsersPage() {
                         >
                           {member.is_active ? 'Deactivate' : 'Activate'}
                         </button>
+
+                        {/* Edit button */}
+                        <button
+                          onClick={() => setEditingMember(member)}
+                          className="rounded border border-border px-2 py-1 text-xs font-medium transition-colors hover:bg-muted"
+                          aria-label={`Edit ${member.full_name}`}
+                        >
+                          Edit
+                        </button>
+
+                        {/* Delete button */}
+                        {!isSelf && (
+                          <button
+                            onClick={() => setDeletingMember(member)}
+                            className="rounded border border-destructive/30 px-2 py-1 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10"
+                            aria-label={`Delete ${member.full_name}`}
+                          >
+                            Delete
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -283,6 +527,14 @@ export default function UsersPage() {
         <strong>Supabase Authentication &rarr; Users</strong>. They will appear here after their
         first sign-in.
       </p>
+
+      {/* Modals */}
+      {editingMember && (
+        <EditModal member={editingMember} onClose={() => setEditingMember(null)} />
+      )}
+      {deletingMember && (
+        <DeleteDialog member={deletingMember} onClose={() => setDeletingMember(null)} />
+      )}
     </div>
   );
 }

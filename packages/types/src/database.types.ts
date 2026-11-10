@@ -2352,6 +2352,28 @@ export type Database = {
         };
         Returns: Json;
       };
+      admin_list_users: {
+        Args: Record<string, never>;
+        Returns: {
+          id: string;
+          full_name: string;
+          phone: string | null;
+          email: string;
+          role: Database['public']['Enums']['app_role'];
+          is_active: boolean;
+          avatar_path: string | null;
+          last_seen_at: string | null;
+          created_at: string;
+        }[];
+      };
+      admin_update_user_email: {
+        Args: { target_id: string; new_email: string };
+        Returns: undefined;
+      };
+      admin_delete_user: {
+        Args: { target_id: string };
+        Returns: undefined;
+      };
     };
     Enums: {
       app_role: 'admin' | 'manager' | 'sales' | 'operations' | 'viewer';
