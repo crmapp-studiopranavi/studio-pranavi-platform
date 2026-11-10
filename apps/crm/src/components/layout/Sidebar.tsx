@@ -111,9 +111,10 @@ const NAV_LINK_CLASS = (isActive: boolean) =>
 interface SidebarSectionProps {
   label: string;
   items: NavItem[];
+  onNavClick?: () => void;
 }
 
-function SidebarSection({ label, items }: SidebarSectionProps) {
+function SidebarSection({ label, items, onNavClick }: SidebarSectionProps) {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(() => getInitialOpen(label, items, pathname));
 
@@ -150,7 +151,11 @@ function SidebarSection({ label, items }: SidebarSectionProps) {
         <ul className="space-y-0.5 pb-1" role="list">
           {items.map((item) => (
             <li key={item.to}>
-              <NavLink to={item.to} className={({ isActive }) => NAV_LINK_CLASS(isActive)}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) => NAV_LINK_CLASS(isActive)}
+                onClick={onNavClick}
+              >
                 <item.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                 {item.label}
               </NavLink>
@@ -162,7 +167,11 @@ function SidebarSection({ label, items }: SidebarSectionProps) {
   );
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  onNavClick?: () => void;
+}
+
+export function Sidebar({ onNavClick }: SidebarProps = {}) {
   const { profile } = useAuth();
 
   const isAdmin = profile?.role === 'admin';
@@ -184,25 +193,25 @@ export function Sidebar() {
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {/* Dashboard — always visible, above all sections */}
         <div className="mb-2">
-          <NavLink to="/" end className={({ isActive }) => NAV_LINK_CLASS(isActive)}>
+          <NavLink to="/" end className={({ isActive }) => NAV_LINK_CLASS(isActive)} onClick={onNavClick}>
             <LayoutDashboard className="h-4 w-4 shrink-0" aria-hidden="true" />
             Dashboard
           </NavLink>
         </div>
 
         {/* Grouped sections */}
-        <SidebarSection label="Sales" items={SALES_ITEMS} />
-        <SidebarSection label="Operations" items={OPERATIONS_ITEMS} />
-        <SidebarSection label="Finance" items={FINANCE_ITEMS} />
+        <SidebarSection label="Sales" items={SALES_ITEMS} onNavClick={onNavClick} />
+        <SidebarSection label="Operations" items={OPERATIONS_ITEMS} onNavClick={onNavClick} />
+        <SidebarSection label="Finance" items={FINANCE_ITEMS} onNavClick={onNavClick} />
 
         {/* My Activity — visible to all staff */}
         <div className="my-1.5 border-t border-sidebar-border/50" />
-        <SidebarSection label="My Activity" items={PERSONAL_ITEMS} />
+        <SidebarSection label="My Activity" items={PERSONAL_ITEMS} onNavClick={onNavClick} />
 
         {/* Reports — between Finance and Website/Admin */}
         <div className="my-1.5 border-t border-sidebar-border/50" />
         <div className="mb-1.5">
-          <NavLink to="/reports" className={({ isActive }) => NAV_LINK_CLASS(isActive)}>
+          <NavLink to="/reports" className={({ isActive }) => NAV_LINK_CLASS(isActive)} onClick={onNavClick}>
             <BarChart2 className="h-4 w-4 shrink-0" aria-hidden="true" />
             Reports
           </NavLink>
@@ -212,12 +221,12 @@ export function Sidebar() {
         {canManageCms && (
           <>
             <div className="my-1.5 border-t border-sidebar-border/50" />
-            <SidebarSection label="Website" items={WEBSITE_ITEMS} />
+            <SidebarSection label="Website" items={WEBSITE_ITEMS} onNavClick={onNavClick} />
           </>
         )}
 
         {/* Administration — admin only */}
-        {isAdmin && <SidebarSection label="Administration" items={ADMIN_ITEMS} />}
+        {isAdmin && <SidebarSection label="Administration" items={ADMIN_ITEMS} onNavClick={onNavClick} />}
       </nav>
 
       {/* User info */}
