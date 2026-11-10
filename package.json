@@ -8,9 +8,13 @@
   },
   "scripts": {
     "dev:website": "pnpm --filter @platform/website dev",
+    "dev:website-new": "pnpm --filter @platform/website-new dev",
     "dev:crm": "pnpm --filter @platform/crm dev",
     "build": "pnpm --filter './apps/*' build",
     "build:website": "pnpm --filter @platform/website build",
+    "build:website-new": "pnpm --filter @platform/website-new build",
+    "dev:website-new-2": "pnpm --filter @platform/website-new-2 dev",
+    "build:website-new-2": "pnpm --filter @platform/website-new-2 build",
     "build:crm": "pnpm --filter @platform/crm build",
     "lint": "pnpm -r --parallel lint",
     "typecheck": "pnpm -r --parallel typecheck",
