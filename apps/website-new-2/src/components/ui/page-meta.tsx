@@ -7,7 +7,7 @@ interface PageMetaProps {
 }
 
 const SITE_NAME = 'STUDIO PRANAVI';
-const BASE_URL = 'https://pranavi.in';
+const BASE_URL = 'https://studiopranvi.com';
 
 export function PageMeta({ title, description, path }: PageMetaProps) {
   const fullTitle = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
