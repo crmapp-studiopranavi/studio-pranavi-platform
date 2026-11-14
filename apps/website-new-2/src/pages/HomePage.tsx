@@ -375,7 +375,7 @@ export function HomePage() {
                 and answer all your questions about bespoke commissions and projects.
               </p>
               <ul className="mt-8 space-y-2">
-                {['By appointment only', 'India', 'Mon–Sat 10:00–18:00', 'Tel: +91 98765 43210'].map((l) => (
+                {['By appointment only', 'India', 'Mon–Sat 10:00–18:00', 'Tel: +91 98213 25865'].map((l) => (
                   <li key={l} className="title-4">{l}</li>
                 ))}
               </ul>

@@ -28,7 +28,7 @@ export function ContactPage() {
                 {[
                   { label: 'Address', value: 'Muradabad, Please contact us to schedule a studio visit By appointment only.' },
                   { label: 'Email', value: 'sales@studiopranvi.com' },
-                  { label: 'Phone / WhatsApp', value: '+919821325868' },
+                  { label: 'Phone / WhatsApp', value: '+919821325865' },
                   { label: 'Hours', value: 'Monday – Saturday, 10 AM – 7 PM IST' },
                 ].map((item) => (
                   <div key={item.label}>
