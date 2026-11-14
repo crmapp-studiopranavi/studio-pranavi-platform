@@ -40,14 +40,14 @@ export function PartnersPage() {
     <>
       <PageMeta
         title="Partners"
-        description="Studio Pranavi trade partnership programme for interior designers, architects, developers, and showrooms."
+        description="Studio Pranvi trade partnership programme for interior designers, architects, developers, and showrooms."
         path="/partners"
       />
 
       <section className="border-b border-brand-border py-20 lg:py-32 bg-white">
         <div className="sp-container">
           <p className="title-4">Collaboration</p>
-          <h1 className="title-1 mt-6 max-w-2xl reveal">Partner with Studio Pranavi</h1>
+          <h1 className="title-1 mt-6 max-w-2xl reveal">Partner with Studio Pranvi</h1>
           <p className="title-3 mt-8 max-w-xl leading-relaxed text-brand-muted reveal reveal-delay-1">
             We build long-term relationships with design professionals who share our commitment
             to quality, craft, and the transformative power of light.
@@ -112,7 +112,7 @@ export function PartnersPage() {
             >
               <img
                 src="/images/material-1.jpg"
-                alt="Studio Pranavi craft"
+                alt="Studio Pranvi craft"
                 className="h-full w-full object-cover"
               />
             </div>
