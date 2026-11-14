@@ -27,7 +27,7 @@ const NEWS = [
 ];
 
 const CONTACT_CARDS = [
-  { label: 'Our studios', action: 'Show information', image: '/images/contact-offices.jpg' },
+  { label: 'Our studios', action: 'Show information', image: '/images/prod-voda.jpg' },
   { label: 'Send a message', action: 'Send a message', image: '/images/contact-message.jpg' },
   { label: 'Visit us', action: 'Visit our showroom', image: '/images/contact-visit.jpg' },
 ];
@@ -47,8 +47,8 @@ export function HomePage() {
   return (
     <>
       <PageMeta
-        title="STUDIO PRANAVI"
-        description="Studio Pranavi creates bespoke glass installations and architectural lighting — works of art that fill your space with grace and light."
+        title="STUDIO Pranvi"
+        description="Studio Pranvi creates bespoke glass installations and architectural lighting — works of art that fill your space with grace and light."
         path="/"
       />
 
@@ -160,7 +160,7 @@ export function HomePage() {
         <div className="sp-container">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
             <p className="title-3 max-w-xl leading-relaxed reveal">
-              Studio Pranavi's artistic glass and lighting is more than illumination. It is emotion,
+              Studio Pranvi's artistic glass and lighting is more than illumination. It is emotion,
               art, and the style of your new interior space.
             </p>
             <div className="flex justify-start lg:justify-end reveal reveal-delay-2">
@@ -208,7 +208,7 @@ export function HomePage() {
             <div className="reveal">
               <p className="title-4">Brand history</p>
               <p className="title-3 mt-8 leading-relaxed text-brand-muted">
-                Studio Pranavi was born from a design studio that had been creating high-end interior
+                Studio Pranvi was born from a design studio that had been creating high-end interior
                 projects for over a decade. Even before the studio appeared, our designers studied
                 glass and light as art forms — understanding how material, form, and luminosity
                 interact to shape human emotion and spatial experience.
@@ -218,7 +218,7 @@ export function HomePage() {
             <div className="reveal-clip reveal-delay-2 bg-white" style={{ aspectRatio: '4/5' }}>
               <img
                 src="/images/about-studio.jpg"
-                alt="Studio Pranavi workshop"
+                alt="Studio Pranvi workshop"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -266,7 +266,7 @@ export function HomePage() {
         <div className="sp-container">
           <h2 className="title-2 reveal">Brand values</h2>
           <p className="title-3 mt-6 max-w-2xl leading-relaxed text-brand-muted reveal reveal-delay-1">
-            Studio Pranavi's distinctive style arises from a unique combination of product qualities
+            Studio Pranvi's distinctive style arises from a unique combination of product qualities
             and craftsmanship: treating glass and light as art, contrasting and unusual materials,
             and unwavering attention to detail.
           </p>
@@ -289,7 +289,7 @@ export function HomePage() {
       {/* ── Stats ────────────────────────────────────────────── */}
       <section className="sp-section border-t border-brand-border bg-white">
         <div className="sp-container">
-          <p className="title-4 reveal">Studio Pranavi today</p>
+          <p className="title-4 reveal">Studio Pranvi today</p>
           <div className="mt-12 grid grid-cols-2 gap-10 lg:grid-cols-4">
             {[
               { stat: '5,000+ sq.ft.', desc: 'of production and creative studio space' },
@@ -371,7 +371,7 @@ export function HomePage() {
           <div className="mt-10 grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-start">
             <div className="reveal reveal-delay-1">
               <p className="title-3 leading-relaxed text-brand-muted">
-                Visit our studio and showroom. The Studio Pranavi team will be happy to welcome you
+                Visit our studio and showroom. The Studio Pranvi team will be happy to welcome you
                 and answer all your questions about bespoke commissions and projects.
               </p>
               <ul className="mt-8 space-y-2">
@@ -387,7 +387,7 @@ export function HomePage() {
             <div className="reveal-clip reveal-delay-2 bg-brand-bgalt" style={{ aspectRatio: '4/3' }}>
               <img
                 src="/images/showroom.jpg"
-                alt="Studio Pranavi showroom"
+                alt="Studio Pranvi showroom"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -430,7 +430,7 @@ export function HomePage() {
           <div className="mt-8 grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-start">
             <div className="reveal reveal-delay-1">
               <p className="title-3 leading-relaxed text-brand-muted">
-                Take advantage of Studio Pranavi partner benefits. Download high-quality images and
+                Take advantage of Studio Pranvi partner benefits. Download high-quality images and
                 technical materials. Create impressive projects and reach new heights!
               </p>
               <Link to="/contact" className="btn-black mt-10">Go to Downloads</Link>
