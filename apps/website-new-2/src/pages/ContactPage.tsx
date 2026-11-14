@@ -8,7 +8,7 @@ export function ContactPage() {
     <>
       <PageMeta
         title="Contact"
-        description="Get in touch with Studio Pranavi to discuss your bespoke glass and lighting project."
+        description="Get in touch with Studio Pranvi to discuss your bespoke glass and lighting project."
         path="/contact"
       />
 
@@ -26,10 +26,10 @@ export function ContactPage() {
               <h2 className="title-2">Showroom &amp; Studio</h2>
               <div className="mt-10 space-y-8">
                 {[
-                  { label: 'Address', value: 'By appointment only. Please contact us to schedule a studio visit.' },
-                  { label: 'Email', value: 'studio@pranavi.in' },
-                  { label: 'Phone / WhatsApp', value: '+91 98765 43210' },
-                  { label: 'Hours', value: 'Monday – Saturday, 10 AM – 6 PM IST' },
+                  { label: 'Address', value: 'Muradabad, Please contact us to schedule a studio visit By appointment only.' },
+                  { label: 'Email', value: 'sales@studiopranvi.com' },
+                  { label: 'Phone / WhatsApp', value: '+919821325868' },
+                  { label: 'Hours', value: 'Monday – Saturday, 10 AM – 7 PM IST' },
                 ].map((item) => (
                   <div key={item.label}>
                     <p className="title-4">{item.label}</p>
