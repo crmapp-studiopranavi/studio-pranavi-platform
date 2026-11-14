@@ -3,11 +3,11 @@ import { PageMeta } from '@/components/ui/page-meta';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const SHOWROOM_DETAILS = [
-  { label: 'Address', value: 'A-12, Sector 63, Design District\nNoida 201 301, Uttar Pradesh, India' },
+  { label: 'Address', value: 'Muradabad, Uttar Pradesh, India' },
   { label: 'Open Hours', value: 'Monday – Saturday\n10:00 am – 7:00 pm' },
   { label: 'Sunday', value: 'By appointment only' },
-  { label: 'Phone', value: '+91 80 4567 8900' },
-  { label: 'Email', value: 'showroom@studiopranavi.com' },
+  { label: 'Phone', value: '+91 98213 25865' },
+  { label: 'Email', value: 'sales@studiopranvi.com' },
 ];
 
 const WHAT_TO_EXPECT = [
@@ -21,7 +21,7 @@ const WHAT_TO_EXPECT = [
   },
   {
     title: 'Design consultations',
-    desc: 'Book a private one-hour session with a Studio Pranavi designer. Bring your floor plan, mood board, or simply your instincts.',
+    desc: 'Book a private one-hour session with a Studio Pranvi designer. Bring your floor plan, mood board, or simply your instincts.',
   },
   {
     title: 'Prototype previews',
@@ -35,7 +35,7 @@ export function ShowroomPage() {
     <>
       <PageMeta
         title="Showroom"
-        description="Visit the Studio Pranavi showroom in Bengaluru — full-scale installations, material library, and design consultations."
+        description="Visit the Studio Pranvi showroom in Bengaluru — full-scale installations, material library, and design consultations."
         path="/showroom"
       />
 
@@ -59,7 +59,7 @@ export function ShowroomPage() {
           >
             <img
               src="/images/showroom.jpg"
-              alt="Studio Pranavi showroom interior"
+              alt="Studio Pranvi showroom interior"
               className="h-full w-full object-cover"
             />
           </div>

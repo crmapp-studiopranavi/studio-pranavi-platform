@@ -8,7 +8,7 @@ export function AboutPage() {
     <>
       <PageMeta
         title="About"
-        description="Studio Pranavi — the story of a design studio that studies glass and light as art forms."
+        description="Studio Pranvi — the story of a design studio that studies glass and light as art forms."
         path="/about"
       />
 
@@ -25,7 +25,7 @@ export function AboutPage() {
             <div className="overflow-hidden bg-brand-bgalt reveal" style={{ aspectRatio: '4/5' }}>
               <img
                 src="/images/about-studio.jpg"
-                alt="Studio Pranavi studio"
+                alt="Studio Pranvi studio"
                 className="h-full w-full object-cover"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
@@ -33,13 +33,13 @@ export function AboutPage() {
             <div className="lg:pt-10 reveal reveal-delay-2">
               <h2 className="title-2">Brand history</h2>
               <p className="title-3 mt-8 leading-relaxed text-brand-muted">
-                Studio Pranavi was born from a design studio that had been creating high-end interior
+                Studio Pranvi was born from a design studio that had been creating high-end interior
                 projects for over a decade. Even before the company appeared, our designers studied
                 glass and light as art forms — understanding how material, form, and luminosity
                 interact to shape human emotion and spatial experience.
               </p>
               <p className="title-3 mt-6 leading-relaxed text-brand-muted">
-                Today, each Studio Pranavi piece is designed and handcrafted specifically for the
+                Today, each Studio Pranvi piece is designed and handcrafted specifically for the
                 space it will inhabit. We work with architects, interior designers, and private
                 clients to realise visions that would be impossible with off-the-shelf products.
               </p>
