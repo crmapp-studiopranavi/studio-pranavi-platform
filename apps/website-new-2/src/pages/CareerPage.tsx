@@ -42,7 +42,7 @@ export function CareerPage() {
     <>
       <PageMeta
         title="Career"
-        description="Join Studio Pranavi — careers in glass artistry, lighting design, and project management."
+        description="Join Studio Pranvi — careers in glass artistry, lighting design, and project management."
         path="/career"
       />
 
@@ -51,7 +51,7 @@ export function CareerPage() {
           <p className="title-4">Collaboration</p>
           <h1 className="title-1 mt-6 max-w-2xl reveal">Build something lasting with us</h1>
           <p className="title-3 mt-8 max-w-xl leading-relaxed text-brand-muted reveal reveal-delay-1">
-            Studio Pranavi is a small team that punches well above its size. We are always
+            Studio Pranvi is a small team that punches well above its size. We are always
             looking for makers, thinkers, and people who care deeply about their craft.
           </p>
         </div>
@@ -94,7 +94,7 @@ export function CareerPage() {
       {/* Why join us */}
       <section className="sp-section border-t border-brand-border" style={{ background: '#f7f7f7' }}>
         <div className="sp-container">
-          <h2 className="title-2 reveal">Why Studio Pranavi</h2>
+          <h2 className="title-2 reveal">Why Studio Pranvi</h2>
           <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
             {VALUES.map((v, i) => (
               <div
@@ -127,7 +127,7 @@ export function CareerPage() {
             >
               <img
                 src="/images/material-2.jpg"
-                alt="Studio Pranavi workspace"
+                alt="Studio Pranvi workspace"
                 className="h-full w-full object-cover"
               />
             </div>
