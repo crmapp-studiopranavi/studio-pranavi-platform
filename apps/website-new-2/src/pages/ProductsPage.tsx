@@ -71,7 +71,7 @@ export function ProductsPage() {
     <>
       <PageMeta
         title="Products"
-        description="Browse Studio Pranavi's full catalogue of bespoke glass and lighting."
+        description="Browse Studio Pranvi's full catalogue of bespoke glass and lighting."
         path="/products"
       />
 
@@ -189,7 +189,7 @@ export function ProductsPage() {
               <p className="title-4">Custom Project</p>
               <h2 className="title-2 mt-4">Commission a bespoke piece</h2>
               <p className="title-3 mt-6 leading-relaxed text-brand-muted">
-                Don't see exactly what you're looking for? Every Studio Pranavi piece can be made
+                Don't see exactly what you're looking for? Every Studio Pranvi piece can be made
                 entirely to your specifications — size, material, finish, and form.
               </p>
               <Link to="/enquiry" className="btn-black mt-10">Request a Custom Quote</Link>
@@ -200,7 +200,7 @@ export function ProductsPage() {
             >
               <img
                 src="/images/material-2.jpg"
-                alt="Bespoke Studio Pranavi installation"
+                alt="Bespoke Studio Pranvi installation"
                 className="h-full w-full object-cover"
               />
             </div>
