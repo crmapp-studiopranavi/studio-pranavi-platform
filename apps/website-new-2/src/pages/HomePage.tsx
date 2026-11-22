@@ -341,8 +341,8 @@ export function HomePage() {
       <section className="sp-section border-t border-brand-border" style={{ background: '#f7f7f7' }}>
         <div className="sp-container">
           <div className="flex items-end justify-between reveal">
-            <h4 className="title-2">News</h4>
-            <Link to="/about" className="btn-black">See all news</Link>
+            <h4 className="title-2">FEEDBACKS</h4>
+            <Link to="/about" className="btn-black">See all feedbacks</Link>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
             {NEWS.map((item, i) => (
