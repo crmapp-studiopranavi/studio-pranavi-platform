@@ -4,7 +4,7 @@ import { PageMeta } from '@/components/ui/page-meta';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All PRODUCTS' },
+  { id: 'all', label: 'All Products' },
   { id: 'grand', label: 'Large Installations' },
   { id: 'chandeliers', label: 'Chandeliers' },
   { id: 'installations', label: 'Installations' },
@@ -48,7 +48,7 @@ const PORTFOLIO = [
   { image: '/images/showroom.jpg', title: 'Private Residence, Hyderabad' },
 ];
 
-export function PRODUCTSPage() {
+export function ProductsPage() {
   useScrollReveal();
   const [activeCategory, setActiveCategory] = useState('all');
 
@@ -65,20 +65,20 @@ export function PRODUCTSPage() {
   }, [activeCategory]);
 
   const filtered =
-    activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
+    activeCategory === 'all' ? Products : Products.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <PageMeta
-        title="PRODUCTS"
+        title="Products"
         description="Browse Studio Pranvi's full catalogue of bespoke glass and lighting."
-        path="/PRODUCTS"
+        path="/Products"
       />
 
       <section className="border-b border-brand-border py-20 lg:py-28 bg-white">
         <div className="sp-container">
           <p className="title-4">Catalogue</p>
-          <h1 className="title-1 mt-4 reveal">PRODUCTS</h1>
+          <h1 className="title-1 mt-4 reveal">Products</h1>
         </div>
       </section>
 
