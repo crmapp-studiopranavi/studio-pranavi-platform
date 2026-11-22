@@ -65,7 +65,7 @@ export function ProductsPage() {
   }, [activeCategory]);
 
   const filtered =
-    activeCategory === 'all' ? Products : Products.filter((p) => p.category === activeCategory);
+    activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
 
   return (
     <>
