@@ -4,7 +4,7 @@ import { PageMeta } from '@/components/ui/page-meta';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All OUR DESIGNES' },
+  { id: 'all', label: 'All OUR_DESIGNES' },
   { id: 'grand', label: 'Large Installations' },
   { id: 'chandeliers', label: 'Chandeliers' },
   { id: 'installations', label: 'Installations' },
@@ -12,7 +12,7 @@ const CATEGORIES = [
   { id: 'floor-lamps', label: 'Floor Lamps' },
 ];
 
-const OUR DESIGNES = [
+const OUR_DESIGNES = [
   // Large Installations
   { id: 'grand-espira', name: 'Espira Grand', category: 'grand', models: 4, isNew: true, image: '/images/grand-espira.jpg' },
   { id: 'grand-ellea', name: 'Ellea Grand', category: 'grand', models: 6, isNew: false, image: '/images/grand-ellea.jpg' },
@@ -48,7 +48,7 @@ const PORTFOLIO = [
   { image: '/images/showroom.jpg', title: 'Private Residence, Hyderabad' },
 ];
 
-export function OUR DESIGNESPage() {
+export function OUR_DESIGNESPage() {
   useScrollReveal();
   const [activeCategory, setActiveCategory] = useState('all');
 
@@ -65,20 +65,20 @@ export function OUR DESIGNESPage() {
   }, [activeCategory]);
 
   const filtered =
-    activeCategory === 'all' ? OUR DESIGNES : OUR DESIGNES.filter((p) => p.category === activeCategory);
+    activeCategory === 'all' ? OUR_DESIGNES : OUR_DESIGNES.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <PageMeta
-        title="OUR DESIGNES"
+        title="OUR_DESIGNES"
         description="Browse Studio Pranvi's full catalogue of bespoke glass and lighting."
-        path="/OUR DESIGNES"
+        path="/OUR_DESIGNES"
       />
 
       <section className="border-b border-brand-border py-20 lg:py-28 bg-white">
         <div className="sp-container">
           <p className="title-4">Catalogue</p>
-          <h1 className="title-1 mt-4 reveal">OUR DESIGNES</h1>
+          <h1 className="title-1 mt-4 reveal">OUR_DESIGNES</h1>
         </div>
       </section>
 
