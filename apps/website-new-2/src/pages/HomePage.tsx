@@ -21,9 +21,9 @@ const NEW_COLLECTIONS = [
 ];
 
 const FEEDBACKS = [
-  { date: '18.08.2026', title: 'Klevver: Special meaning in every element', image: '/images/FEEDBACKS-1.jpg' },
-  { date: '24.06.2026', title: 'The story of glass: how crystal entered our collections', image: '/images/FEEDBACKS-2.jpg' },
-  { date: '01.09.2025', title: 'Mobula collection — pure creativity in motion', image: '/images/FEEDBACKS-3.jpg' },
+  { date: '18.08.2026', title: 'Klevver: Special meaning in every element', image: '/images/news-1.jpg' },
+  { date: '24.06.2026', title: 'The story of glass: how crystal entered our collections', image: '/images/news-2.jpg' },
+  { date: '01.09.2025', title: 'Mobula collection — pure creativity in motion', image: '/images/news-3.jpg' },
 ];
 
 const CONTACT_CARDS = [
