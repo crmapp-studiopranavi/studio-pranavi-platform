@@ -20,10 +20,10 @@ const NEW_COLLECTIONS = [
   { id: 'rene', name: 'Rene Mono Installation', models: 5, image: '/images/prod-rene.jpg' },
 ];
 
-const NEWS = [
-  { date: '18.08.2026', title: 'Klevver: Special meaning in every element', image: '/images/news-1.jpg' },
-  { date: '24.06.2026', title: 'The story of glass: how crystal entered our collections', image: '/images/news-2.jpg' },
-  { date: '01.09.2025', title: 'Mobula collection — pure creativity in motion', image: '/images/news-3.jpg' },
+const FEEDBACKS = [
+  { date: '18.08.2026', title: 'Klevver: Special meaning in every element', image: '/images/FEEDBACKS-1.jpg' },
+  { date: '24.06.2026', title: 'The story of glass: how crystal entered our collections', image: '/images/FEEDBACKS-2.jpg' },
+  { date: '01.09.2025', title: 'Mobula collection — pure creativity in motion', image: '/images/FEEDBACKS-3.jpg' },
 ];
 
 const CONTACT_CARDS = [
@@ -337,15 +337,15 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── News ─────────────────────────────────────────────── */}
+      {/* ── FEEDBACKS ─────────────────────────────────────────────── */}
       <section className="sp-section border-t border-brand-border" style={{ background: '#f7f7f7' }}>
         <div className="sp-container">
           <div className="flex items-end justify-between reveal">
-            <h4 className="title-2">NEWS</h4>
-            <Link to="/about" className="btn-black">See all news</Link>
+            <h4 className="title-2">FEEDBACKS</h4>
+            <Link to="/about" className="btn-black">See all FEEDBACKS</Link>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
-            {NEWS.map((item, i) => (
+            {FEEDBACKS.map((item, i) => (
               <article key={i} className={`reveal reveal-delay-${Math.min(i + 1, 3) as 1 | 2 | 3}`}>
                 <div className="overflow-hidden bg-white" style={{ aspectRatio: '16/10' }}>
                   <img
